@@ -1,0 +1,28 @@
+# Python
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.env
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Model weights
+model/*.pth
+model/*.pt
+backend/*.pth
+backend/*.pt
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.production
+
+# Dataset
+dataset/
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+*.pyc
