@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar.jsx'
-import Footer from './components/Footer.jsx'
+import Navbar from './components/navbar.jsx'
+import Footer from './components/footer.jsx'
 import HomePage from './pages/HomePage.jsx'
 import UploadPage from './pages/UploadPage.jsx'
 import ResultPage from './pages/ResultPage.jsx'
