@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import HomePage from './pages/HomePage'
-import UploadPage from './pages/UploadPage'
-import ResultPage from './pages/ResultPage'
-import HistoryPage from './pages/HistoryPage'
+import Navbar from './components/Navbar.jsx'
+import Footer from './components/Footer.jsx'
+import HomePage from './pages/HomePage.jsx'
+import UploadPage from './pages/UploadPage.jsx'
+import ResultPage from './pages/ResultPage.jsx'
+import HistoryPage from './pages/HistoryPage.jsx'
 
 function App() {
   return (
