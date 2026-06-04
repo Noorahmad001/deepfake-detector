@@ -9,7 +9,7 @@ Pillow==10.3.0
 opencv-python-headless==4.9.0.80
 pydantic-settings==2.2.1
 certifi
-torch
-torchvision
-transformers
-timm
+torch==2.3.0
+torchvision==0.18.0
+transformers==4.40.0
+timm==0.9.16
