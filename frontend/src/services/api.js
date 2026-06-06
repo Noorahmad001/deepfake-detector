@@ -1,11 +1,9 @@
 import axios from 'axios'
 
-const API_BASE_URL = (
-  import.meta.env.VITE_API_URL ||
-  'https://deepfake-detector-2-5zeq.onrender.com'
-).replace(/\/$/, '')
+// Use relative paths — Netlify proxies /api/* to the backend in production.
+// Vite dev server proxies the same paths locally (see vite.config.js).
+const API_BASE_URL = ''
 
-// Generate unique session ID per browser session
 const getSessionId = () => {
   let sessionId = sessionStorage.getItem('deepfake_session_id')
   if (!sessionId) {
