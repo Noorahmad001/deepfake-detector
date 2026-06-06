@@ -6,11 +6,13 @@ backend/.env
 backend/uploads/*
 !backend/uploads/.gitkeep
 
-# Model weights
+# Model weights (excluding backend/model which is deployed)
 model/*.pth
 model/*.pt
 backend/*.pth
 backend/*.pt
+!backend/model/*.pth
+!backend/model/*.pt
 
 # Node
 frontend/node_modules/

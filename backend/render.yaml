@@ -13,3 +13,7 @@ services:
         value: "10"
       - key: MAX_VIDEO_SIZE_MB
         value: "100"
+      - key: MONGODB_URL
+        sync: false
+      - key: DB_NAME
+        value: deepfake_db

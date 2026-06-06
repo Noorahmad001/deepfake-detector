@@ -15,7 +15,7 @@ router = APIRouter()
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
-MODEL_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "model"))
+MODEL_DIR = os.path.abspath(os.path.join(BASE_DIR, "model"))
 
 print(f"Backend dir: {BASE_DIR}")
 print(f"Model dir: {MODEL_DIR}")
@@ -40,20 +40,29 @@ def ensure_model_loaded():
     MODEL_LOAD_ATTEMPTED = True
 
     try:
+        print(f"Attempting to load AI model from: {MODEL_DIR}")
+        print(f"Model directory exists: {os.path.exists(MODEL_DIR)}")
+        
+        if not os.path.exists(MODEL_DIR):
+            raise FileNotFoundError(f"Model directory not found: {MODEL_DIR}")
+        
         from hf_detector import (
             load_pretrained_model,
             predict_image,
             predict_video,
         )
 
+        print("Loading Hugging Face model...")
         load_pretrained_model()
         predict_image_fn = predict_image
         predict_video_fn = predict_video
         AI_MODEL_AVAILABLE = True
-        print("AI model loaded successfully")
+        print("✅ AI model loaded successfully")
     except Exception as e:
-        print(f"AI model not available: {e}")
-        print("Using mock results")
+        print(f"❌ AI model not available: {e}")
+        import traceback
+        traceback.print_exc()
+        print("⚠️  Using mock results")
 
     return AI_MODEL_AVAILABLE
 
