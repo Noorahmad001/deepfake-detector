@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ||
+  'https://deepfake-detector-2-5zeq.onrender.com'
+).replace(/\/$/, '')
 
 // Generate unique session ID per browser session
 const getSessionId = () => {
@@ -59,6 +62,11 @@ export const getHistory = async () => {
   const response = await api.get(
     `/api/history?session_id=${getSessionId()}`
   )
+  return response.data
+}
+
+export const getHealth = async () => {
+  const response = await api.get('/health')
   return response.data
 }
 
