@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FolderUp, AlertTriangle, Image as ImageIcon, Video, Search } from 'lucide-react'
-import LoadingSpinner from '../components/loadingspinner'
 import { detectImage, detectVideo } from '../services/api'
 
 function UploadPage() {
@@ -141,7 +140,7 @@ function UploadPage() {
               justifyContent: 'center',
               margin: '0 auto 16px',
             }}>
-              <FolderUp className="w-8 h-8 text-blue-400" />
+              <FolderUp size={28} color="#60a5fa" />
             </div>
 
             <p style={{
@@ -184,9 +183,11 @@ function UploadPage() {
             borderRadius: '10px',
             fontSize: '14px',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            gap: '8px'
           }}>
-            <AlertTriangle className="w-5 h-5 mr-2" /> {error}
+            <AlertTriangle size={18} color="#f87171" />
+            {error}
           </div>
         )}
 
@@ -286,7 +287,8 @@ function UploadPage() {
                 gap: '8px'
               }}
             >
-              <Search className="w-5 h-5" /> Analyze for Deepfake
+              <Search size={18} color="white" />
+              Analyze for Deepfake
             </button>
           </div>
         )}
@@ -322,19 +324,34 @@ function UploadPage() {
                     borderRadius: '100px',
                     width: `${uploadProgress}%`,
                     transition: 'width 0.3s'
-                  }}></div>
+                  }} />
                 </div>
               </div>
             )}
-            <LoadingSpinner
-              message={
-                uploadProgress < 100
-                  ? 'Uploading file...'
-                  : fileType === 'video'
-                  ? 'Extracting frames and analyzing...'
-                  : 'Analyzing with AI model...'
-              }
-            />
+
+            <div style={{ textAlign: 'center', padding: '16px 0' }}>
+              <style>{`
+                @keyframes spin {
+                  0%   { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}</style>
+              <div style={{
+                width: '48px',
+                height: '48px',
+                border: '4px solid #1f2937',
+                borderTop: '4px solid #3b82f6',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite',
+                margin: '0 auto 16px'
+              }} />
+              <p style={{ color: '#ffffff', fontWeight: '600', fontSize: '16px', marginBottom: '6px' }}>
+                Analyzing...
+              </p>
+              <p style={{ color: '#6b7280', fontSize: '13px' }}>
+                This may take a moment
+              </p>
+            </div>
           </div>
         )}
 
@@ -347,8 +364,8 @@ function UploadPage() {
             marginTop: '16px'
           }}>
             {[
-              { icon: <ImageIcon className="w-6 h-6 text-blue-400" />, title: 'Images', desc: 'JPG, PNG, WEBP up to 10MB' },
-              { icon: <Video className="w-6 h-6 text-blue-400" />, title: 'Videos', desc: 'MP4, AVI, MOV up to 100MB' },
+              { icon: <ImageIcon size={24} color="#60a5fa" />, title: 'Images', desc: 'JPG, PNG, WEBP up to 10MB' },
+              { icon: <Video size={24} color="#60a5fa" />, title: 'Videos', desc: 'MP4, AVI, MOV up to 100MB' },
             ].map((card) => (
               <div key={card.title} style={{
                 background: '#0f172a',
@@ -356,7 +373,7 @@ function UploadPage() {
                 borderRadius: '12px',
                 padding: '16px'
               }}>
-                <div style={{ fontSize: '20px', marginBottom: '6px' }}>{card.icon}</div>
+                <div style={{ marginBottom: '6px' }}>{card.icon}</div>
                 <p style={{
                   color: '#ffffff',
                   fontSize: '14px',
@@ -370,6 +387,7 @@ function UploadPage() {
             ))}
           </div>
         )}
+
       </div>
     </div>
   )
