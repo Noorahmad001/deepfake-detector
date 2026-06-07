@@ -30,6 +30,7 @@ app = FastAPI(
 # ─── CORS ─────────────────────────────────────────────────────────────────────
 allowed_origins = [
     "https://jovial-blancmange-ed4f77.netlify.app",
+    "https://deepfake-detector-15h.pages.dev",   # Cloudflare Pages
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
