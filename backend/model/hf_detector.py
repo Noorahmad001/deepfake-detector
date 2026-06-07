@@ -1,3 +1,6 @@
+import os
+os.environ["TRANSFORMERS_CACHE"] = "/opt/render/project/src/.cache"
+os.environ["HF_HOME"] = "/opt/render/project/src/.cache"
 import torch
 import numpy as np
 from PIL import Image
