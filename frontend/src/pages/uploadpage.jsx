@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FolderUp, AlertTriangle, Image as ImageIcon, Video, Search } from 'lucide-react'
-import LoadingSpinner from '../components/LoadingSpinner'
+import LoadingSpinner from '../components/loadingSpinner'
 import { detectImage, detectVideo } from '../services/api'
 
 function UploadPage() {
