@@ -13,3 +13,4 @@ torch==2.3.0
 torchvision==0.18.0
 transformers==4.40.0
 timm==0.9.16
+numpy==1.26.4
