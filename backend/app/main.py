@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from contextlib import asynccontextmanager
+import asyncio
 import os
 from dotenv import load_dotenv
 
@@ -15,6 +16,17 @@ from app.database.connection import connect_to_mongo, close_mongo_connection
 async def lifespan(app: FastAPI):
     print("🚀 Starting Deepfake Detector API...")
     await connect_to_mongo()
+
+    # ─── Preload AI model at startup so first request is instant ──────────────
+    try:
+        print("🧠 Preloading AI model at startup (this may take ~30s)...")
+        from app.routes.detect import ensure_model_loaded
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, ensure_model_loaded)
+        print("✅ Model preload complete!")
+    except Exception as e:
+        print(f"⚠️  Model preload failed: {e}")
+
     yield
     print("👋 Shutting down...")
     await close_mongo_connection()
@@ -30,7 +42,7 @@ app = FastAPI(
 # ─── CORS ─────────────────────────────────────────────────────────────────────
 allowed_origins = [
     "https://jovial-blancmange-ed4f77.netlify.app",
-    "https://deepfake-detector-15h.pages.dev",   # Cloudflare Pages
+    "https://deepfake-detector-15h.pages.dev",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:3000",
@@ -62,7 +74,7 @@ from app.routes import detect, history
 app.include_router(detect.router, prefix="/api", tags=["Detection"])
 app.include_router(history.router, prefix="/api", tags=["History"])
 
-# ─── Health check ─────────────────────────────────────────────────────────────
+# ─── Health & Root endpoints (GET + HEAD for UptimeRobot / cron-job.org) ──────
 @app.get("/")
 async def root():
     return JSONResponse(content={
@@ -71,6 +83,14 @@ async def root():
         "version": "1.0.0"
     })
 
+@app.head("/")
+async def root_head():
+    return Response()
+
 @app.get("/health")
 async def health_check():
     return JSONResponse(content={"status": "healthy"})
+
+@app.head("/health")
+async def health_head():
+    return Response()
